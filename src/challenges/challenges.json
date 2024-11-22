@@ -1,15 +1,14 @@
 [
     {
-      "id": 1,
-      "name": "Decode Coordinates",
-      "level": "Beginner",
-      "file": "decodeCoordinates.json"
+        "id": 1,
+        "name": "Decode Coordinates",
+        "level": 1,
+        "file": "decodeCoordinates.json"
     },
     {
-      "id": 2,
-      "name": "City Connections",
-      "level": "Advanced",
-      "file": "cityConnections.json"
+        "id": 2,
+        "name": "City Connections",
+        "level": 2,
+        "file": "cityConnections.json"
     }
-  ]
-  
+]

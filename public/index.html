@@ -3,91 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CTF Map Conversion</title>
+  <title>Capture The Pod Flag</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       background-color: #f4f4f9;
     }
     header {
-      background-color: #0078D7;
+      background-color: #2c3e50;
       color: white;
-      width: 100%;
       padding: 1rem;
       text-align: center;
-      font-size: 1.5rem;
     }
     main {
+      max-width: 800px;
       margin: 2rem auto;
-      max-width: 600px;
       padding: 1rem;
-      background-color: white;
+      background: white;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .challenge-select {
-      margin-bottom: 1rem;
-    }
-    label {
-      font-size: 1rem;
-      font-weight: bold;
-    }
-    select, input, button {
-      display: block;
-      width: 100%;
-      margin-top: 0.5rem;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    .challenge-card {
+      border: 1px solid #ddd;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 5px;
     }
     button {
-      background-color: #0078D7;
+      background-color: #3498db;
       color: white;
       border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #005BB5;
+      background-color: #2980b9;
     }
-    .result {
-      margin-top: 1rem;
+    #leaderboard {
+      margin-top: 2rem;
       padding: 1rem;
-      font-size: 1rem;
-      border-radius: 4px;
+      background-color: #ecf0f1;
+      border-radius: 8px;
     }
-    .success {
-      background-color: #d4edda;
-      color: #155724;
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .error {
-      background-color: #f8d7da;
-      color: #721c24;
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
     }
   </style>
 </head>
 <body>
-  <header>CTF Map Conversion Challenge</header>
+  <header>
+    <h1>Capture The Pod Flag Map Challenges</h1>
+  </header>
   <main>
-    <div class="challenge-select">
-      <label for="challenge">Select Challenge</label>
-      <select id="challenge">
-        <option value="beginner/decodeCoordinates">Decode Coordinates (Beginner)</option>
-      </select>
-    </div>
-    <div class="submission-input">
-      <label for="input">Your Solution</label>
-      <input id="input" type="text" placeholder="Enter your Base64 encoded string here">
-    </div>
-    <button id="submit">Submit</button>
-    <div id="result" class="result"></div>
-  </main>
+    <section id="challenges">
+      <h2>Challenges</h2>
+      <div class="challenge-card" id="level1">
+        <h3>Level 1: Decode Coordinates</h3>
+        <p>Decode the Base64-encoded coordinates of the Overture2osm project fellows.</p>
+        <input type="text" id="level1-input" placeholder="Enter your solution here">
+        <button onclick="submitSolution(1)">Submit</button>
+        <p id="level1-result"></p>
+      </div>
+      <div class="challenge-card" id="level2">
+        <h3>Level 2: City Connections</h3>
+        <p>Find a valid connection path between two cities using the provided dataset.</p>
+        <input type="text" id="level2-input" placeholder="Enter your solution here">
+        <button onclick="submitSolution(2)">Submit</button>
+        <p id="level2-result"></p>
+      </div>
+    </section>
 
-  <script src="app.js"></script>
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <script>
+    async function updateLeaderboard() {
+      const response = await fetch("/leaderboard");
+      const leaderboard = await response.json();
+      const tbody = document.getElementById("leaderboard-body");
+      tbody.innerHTML = ""; // Clear current rows
+      leaderboard.forEach((entry) => {
+        const row = `<tr><td>${entry.username}</td><td>${entry.score}</td></tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    async function submitSolution(level) {
+      const inputField = document.getElementById(`level${level}-input`);
+      const resultField = document.getElementById(`level${level}-result`);
+      const input = inputField.value;
+
+      const response = await fetch(`/validate/${level === 1 ? "decodeCoordinates" : "cityConnections"}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submission: input }),
+      });
+
+      const result = await response.text();
+      resultField.textContent = result;
+
+      if (result.startsWith("FLAG")) {
+        const username = prompt("Enter your username for the leaderboard:");
+        if (username) {
+          await fetch(`/leaderboard`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, score: level }),
+          });
+          updateLeaderboard();
+        }
+      }
+    }
+
+    updateLeaderboard();
+  </script>
 </body>
 </html>

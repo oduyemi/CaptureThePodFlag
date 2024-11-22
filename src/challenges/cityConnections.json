@@ -1,0 +1,17 @@
+{
+    "name": "City Connections",
+    "description": "Find a valid route connecting the two cities in the graph.",
+    "data": {
+        "graph": {
+            "Gbagada": ["Ikeja", "Lekki"],
+            "Ikeja": ["Gbagada", "Ikoyi"],
+            "Lekki": ["Gbagada", "Victoria Island"],
+            "Victoria Island": ["Lekki", "Ikoyi"],
+            "Ikoyi": ["Ikeja", "Victoria Island"]
+        },
+        "start": "Gbagada",
+        "end": "Victoria Island"
+    },
+    "hints": ["Use a graph traversal algorithm like BFS or DFS."],
+    "flag_format": "FLAG{city_path_found}"
+}
