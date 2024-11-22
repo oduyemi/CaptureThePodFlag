@@ -1,0 +1,11 @@
+{
+    "name": "Decode Coordinates",
+    "description": "Decode the Base64 string to find the coordinates of the Overture2OSM Project Fellows.",
+    "data": {
+      "Gbagada": "Ni41NTg0LDNFMzkxNQ==",
+      "Florida": "Mjc2NjQ4LDgxNTE1OA=="
+    },
+    "hints": ["Use a Base64 decoder to reveal the coordinates."],
+    "flag_format": "FLAG{decoded_coordinates}"
+  }
+  

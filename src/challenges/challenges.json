@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "name": "Decode Coordinates",
+      "level": "Beginner",
+      "file": "decodeCoordinates.json"
+    },
+    {
+      "id": 2,
+      "name": "City Connections",
+      "level": "Advanced",
+      "file": "cityConnections.json"
+    }
+  ]
+  
