@@ -1,4 +1,4 @@
-# **CTF Challenge Portal Documentation**
+# **24.FAL.A.2 CTF Challenge**
 
 ## **Overview**
 
