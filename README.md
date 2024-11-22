@@ -1,8 +1,8 @@
-# **24.FAL.A.2 CTF Challenge**
+# **24.FAL.A.2 CTPF Challenge**
 
 ## **Overview**
 
-The CTF Challenge Portal is an interactive platform for participants to solve challenges and compete on a leaderboard. This application includes:
+The Capture The Pod Flag Challenge is an interactive platform for participants to solve challenges and compete on a leaderboard. This application includes:
 1. A list of challenges across two levels.
 2. Validation and scoring of submissions.
 3. A dynamic leaderboard to track top participants.
