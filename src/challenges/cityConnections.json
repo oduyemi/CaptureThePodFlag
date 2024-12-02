@@ -1,17 +1,13 @@
 {
     "name": "City Connections",
-    "description": "Find a valid route connecting the two cities in the graph.",
+    "description": "Calculate the great-circle distance between Gbagada and Florida.",
     "data": {
-        "graph": {
-            "Gbagada": ["Ikeja", "Lekki"],
-            "Ikeja": ["Gbagada", "Ikoyi"],
-            "Lekki": ["Gbagada", "Victoria Island"],
-            "Victoria Island": ["Lekki", "Ikoyi"],
-            "Ikoyi": ["Ikeja", "Victoria Island"]
-        },
-        "start": "Gbagada",
-        "end": "Victoria Island"
+      "cities": [
+        { "name": "Gbagada", "lat": 6.5584, "lon": 3.3915 },
+        { "name": "Florida", "lat": 27.6648, "lon": -81.5158 }
+      ]
     },
-    "hints": ["Use a graph traversal algorithm like BFS or DFS."],
-    "flag_format": "FLAG{city_path_found}"
-}
+    "hints": ["Use the Haversine formula to calculate the distance."],
+    "flag_format": "FLAG{city_connections_success}"
+  }
+  
